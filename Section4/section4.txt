@@ -1,0 +1,44 @@
+//CASE文の勉強
+SELECT 
+  *,
+  CASE
+    WHEN age>=10 and age< 20 THEN "10代"
+    WHEN age>=20 and age< 30 THEN "20代"
+    WHEN age>=30 and age< 40 THEN "30代"
+    WHEN age>=40 and age< 50 THEN "40代"
+    ELSE "50歳以上"
+  END AS age
+FROM sql-project-436511.Section4.users
+
+//if文の勉強
+SELECT age, pref, IF(age >= 20, "青年", "未成年") AS category 
+FROM sql-project-436511.Section4.users
+
+//GROUP BYでグループごとの平均年齢や最大値，最小値，数をそれぞれ算出可能
+SELECT 
+gender, 
+COUNT(*) AS cnt,
+MAX(age) AS max_age,
+MIN(age) AS min_age,
+AVG(age) AS ave_age
+FROM sql-project-436511.Section4.users
+GROUP BY gender
+
+//複数のグループの掛け合わせの条件を考える
+SELECT 
+gender, 
+pref,
+COUNT(*) AS cnt,
+FROM sql-project-436511.Section4.users3
+GROUP BY gender,pref
+ORDER BY gender
+
+[演習]
+SELECT 
+  user_id,
+  SUM(price) AS sum_price,
+  IF(SUM(price) >= 3000, "10%", "5%") AS coupon
+FROM sql-project-436511.Section4.orders
+GROUP BY user_id
+ORDER BY user_id
+
